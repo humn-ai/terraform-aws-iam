@@ -21,3 +21,8 @@ variable "tags" {
   default     = {}
 }
 
+variable "mfa_enabled" {
+  description = "Boolean condidtional expression for enabling MFA on the assume role"
+  type        = bool
+  default     = true
+}

@@ -6,10 +6,30 @@ data "aws_iam_policy_document" "assume_role" {
   }
 }
 
+data "aws_iam_policy_document" "assume_role_with_mfa" {
+  statement {
+    effect    = "Allow"
+    actions   = ["sts:AssumeRole"]
+    resources = var.assumable_roles
+    condition {
+      test     = "Bool"
+      variable = "aws:MultiFactorAuthPresent"
+      values   = ["true"]
+    }
+
+    condition {
+      test     = "NumericLessThan"
+      variable = "aws:MultiFactorAuthAge"
+      values   = [var.mfa_age]
+    }
+  }
+}
+
+
 resource "aws_iam_policy" "this" {
   name        = var.name
   description = "Allows to assume role in another AWS account"
-  policy      = data.aws_iam_policy_document.assume_role.json
+  policy      = var.mfa_enabled ? data.aws_iam_policy_document.assume_role_with_mfa.json : data.aws_iam_policy_document.assume_role.json
 
   tags = var.tags
 }
@@ -30,4 +50,3 @@ resource "aws_iam_group_membership" "this" {
   name  = var.name
   users = var.group_users
 }
-
