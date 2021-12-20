@@ -10,16 +10,15 @@ output "assumable_roles" {
 
 output "policy_arn" {
   description = "Assume role policy ARN of IAM group"
-  value       = aws_iam_policy.this.arn
+  value       = join("", aws_iam_policy.this.*.arn)
 }
 
 output "group_name" {
   description = "IAM group name"
-  value       = aws_iam_group.this.name
+  value       = join("", aws_iam_group.this.*.name)
 }
 
 output "group_arn" {
   description = "IAM group arn"
-  value       = aws_iam_group.this.arn
+  value       = join("", aws_iam_group.this.*.arn)
 }
-
