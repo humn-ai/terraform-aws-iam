@@ -10,12 +10,6 @@ variable "group_users" {
   default     = []
 }
 
-variable "tags" {
-  description = "A map of tags to add to all resources."
-  type        = map(string)
-  default     = {}
-}
-
 variable "mfa_enabled" {
   description = "Boolean condidtional expression for enabling MFA on the assume role"
   type        = bool
