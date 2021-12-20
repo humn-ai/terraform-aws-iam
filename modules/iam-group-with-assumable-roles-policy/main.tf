@@ -47,7 +47,7 @@ resource "aws_iam_group" "this" {
 resource "aws_iam_group_policy_attachment" "this" {
   count      = local.enabled ? 1 : 0
   group      = aws_iam_group.this.0.id
-  policy_arn = aws_iam_policy.this.id
+  policy_arn = aws_iam_policy.this.0.id
 }
 
 resource "aws_iam_group_membership" "this" {
