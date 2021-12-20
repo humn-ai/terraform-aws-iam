@@ -26,3 +26,9 @@ variable "mfa_enabled" {
   type        = bool
   default     = true
 }
+
+variable "mfa_age" {
+  description = "Max age of valid MFA (in seconds) for roles which require MFA"
+  type        = number
+  default     = 86400
+}
