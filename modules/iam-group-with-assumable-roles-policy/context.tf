@@ -40,6 +40,13 @@ module "this" {
   context = var.context
 }
 
+module "this_policy" {
+  source     = "cloudposse/label/null"
+  version    = "0.24.1" # requires Terraform >= 0.13.0
+  context    = module.this.context
+  attributes = ["policy"]
+}
+
 # Copy contents of cloudposse/terraform-null-label/variables.tf here
 
 variable "context" {
