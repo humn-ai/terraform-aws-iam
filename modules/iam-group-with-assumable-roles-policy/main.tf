@@ -53,7 +53,7 @@ resource "aws_iam_group_policy_attachment" "this" {
 resource "aws_iam_group_membership" "this" {
   count = local.enabled && length(var.group_users) > 0 ? 1 : 0
 
-  group = aws_iam_group.this.id
+  group = aws_iam_group.this.0.id
   name  = var.name
   users = var.group_users
 }
