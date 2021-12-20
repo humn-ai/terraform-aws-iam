@@ -32,11 +32,11 @@ data "aws_iam_policy_document" "assume_role_with_mfa" {
 
 resource "aws_iam_policy" "this" {
   count       = local.enabled ? 1 : 0
-  name        = module.this.id
+  name        = module.this_policy.id
   description = "Allows to assume role in another AWS account"
   policy      = var.mfa_enabled ? data.aws_iam_policy_document.assume_role_with_mfa.json : data.aws_iam_policy_document.assume_role.json
 
-  tags = module.this.tags
+  tags = module.this_policy.tags
 }
 
 resource "aws_iam_group" "this" {
